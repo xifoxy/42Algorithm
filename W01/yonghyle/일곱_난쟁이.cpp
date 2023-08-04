@@ -6,7 +6,7 @@
 using namespace std;
 
 vector<int> dwarfs(9);
-vector<int> select(7);
+vector<int> choose(7);
 
 void recur(int cnt, int idx, int sum)
 {
@@ -18,18 +18,14 @@ void recur(int cnt, int idx, int sum)
 		{
 			if (sum == 100)
 			{
-				for (int x : select)
-					select[x] = dwarfs[x];
-				sort(select.begin(), select.end());
-				for (int x : select)
-					cout << x << "\n";
+				for (int x : choose)
+					cout << dwarfs[x] << "\n";
 			}
 			else
 				return;
 		}
-		select[cnt] = idx;
-		cout << "cnt: " << cnt << " idx: " << idx << " sum: " << sum << endl;
-		recur(cnt + 1, idx + 1, sum + dwarfs[select[cnt]]);
+		choose[cnt] = idx;
+		recur(cnt + 1, idx + 1, sum + dwarfs[choose[cnt]]);
 		idx++;
 	}
 }
@@ -45,5 +41,6 @@ int main()
 		cin >> input;
 		dwarfs[i] = input;
 	}
+	sort(dwarfs.begin(), dwarfs.end());
 	recur(0, 0, 0);
 }
