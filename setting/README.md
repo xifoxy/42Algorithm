@@ -8,8 +8,8 @@
   ![image](./s1.png)
   각각 빌드와, 실행 단축키 셋팅입니다.
 - #### Extention [C/C++](https://code.visualstudio.com/docs/languages/cpp)
-- #### [task.json](#./task.md)
-- #### [launch.json](#./launch.md)
+- #### [task.json](task.md)
+- #### [launch.json](launch.md)
   
 ### clang-format
-- #### [clang format](#./clangformat)
+- #### [clang format](clangformat.md)

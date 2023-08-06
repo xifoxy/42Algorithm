@@ -11,4 +11,4 @@
 <hr/>
 
 ### vscode C++사용자를 유용한 셋팅
-- [여기](setting/setting.md)
+- [여기](setting/README.md)
