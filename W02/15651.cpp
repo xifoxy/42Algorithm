@@ -15,14 +15,9 @@ void recursive(int n, int m)
     }
     for (int i = 0 ; i < n ; ++i)
     {
-        if (visited[i] == false)
-        {
-            visited[i] = true;
-            v.push_back(i + 1);
-            recursive(n, m - 1);
-            v.pop_back();
-            visited[i] = false;
-        }
+        v.push_back(i + 1);
+        recursive(n, m - 1);
+        v.pop_back();
     }
 }
 
@@ -34,5 +29,4 @@ int main()
     recursive(n, m);
 }
 
-// visited 배열을 두고 매 재귀마다 for문을 n까지 돌면서 방문한 적이 있다면 
-// vector에 넣지 않는다.
+// 모든 점들을 중복해서 돌아야하므로 모든 재귀문에서 for문을 다 돌면서 값을 채우면 됨.
