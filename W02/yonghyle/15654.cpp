@@ -1,12 +1,14 @@
 #include <iostream>
 #include <cstring>
 #include <algorithm>
+#include <vector>
 
 using namespace std;
 
 int n, m;
 int input[8];
 int flag[8];
+vector<int> num;
 
 void recur(int idx, int depth)
 {
@@ -14,27 +16,20 @@ void recur(int idx, int depth)
 	{
 		if (depth == m)
 		{
-			for (int i = 0; i < m; i++)
-			{
-				if (flag[i])
-				{
-					cout << "i: " << i << "\n";
-					cout << input[i] << " ";
-				}
-			}
+			for (int j : num)
+				cout << j << " ";
 			cout << "\n";
 			return ;
 		}
 		else if (idx >= n)
-		{
-			cout << "over\n";
 			return ;
-		}
 		if (flag[idx] == 0)
 		{
 			flag[idx] = 1;
+			num.push_back(input[idx]);
 			recur(0, depth + 1);
 			flag[idx] = 0;
+			num.pop_back();
 		}
 		idx++;
 	}
