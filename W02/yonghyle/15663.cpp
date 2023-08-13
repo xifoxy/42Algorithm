@@ -24,16 +24,19 @@ void recur(int idx, int depth)
 			return ;
 		}
 		else if (idx >= n)
+		{
+			prev_num[depth] = 0;
 			return ;
+		}
 		if (flag[idx] == 0 && prev_num[depth] != input[idx])
 		{
 			flag[idx] = 1;
 
-			num[depth] = (input[idx]);
-			prev_num[depth] = num[idx];
+			num[depth] = input[idx];
+			prev_num[depth] = input[idx];
 
 			recur(0, depth + 1);
-			
+
 			flag[idx] = 0;
 		}
 		idx++;
