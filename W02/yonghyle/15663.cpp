@@ -7,7 +7,10 @@ using namespace std;
 
 int n, m;
 int input[8];
-vector<int> num;
+int flag[8];
+int prev_num[8];
+int num[8];
+
 
 void recur(int idx, int depth)
 {
@@ -15,16 +18,24 @@ void recur(int idx, int depth)
 	{
 		if (depth == m)
 		{
-			for (int j : num)
-				cout << j << " ";
+			for (int j = 0; j < m; j++)
+				cout << num[j] << " ";
 			cout << "\n";
 			return ;
 		}
 		else if (idx >= n)
 			return ;
-		num.push_back(input[idx]);
-		recur(idx + 1, depth + 1);
-		num.pop_back();
+		if (flag[idx] == 0 && prev_num[depth] != input[idx])
+		{
+			flag[idx] = 1;
+
+			num[depth] = (input[idx]);
+			prev_num[depth] = num[idx];
+
+			recur(0, depth + 1);
+			
+			flag[idx] = 0;
+		}
 		idx++;
 	}
 }
