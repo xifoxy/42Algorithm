@@ -9,71 +9,63 @@ int main()
 	ios_base::sync_with_stdio(0);
 	cin.tie(0);
 
-	int n, input, num1 = 0, num2 = 0, num3 = 0;
+	int n, input_q, input_s, input_b;
 	cin >> n;
 
 	vector<int> question, strike, ball, ball_list;
-	for(int i = 0; i < n; i++)
-	{
-		cin >> input;
-		question.push_back(input);
-		cin >> input;
-		strike.push_back(input);
-		cin >> input;
-		ball.push_back(input);
-	}
 
 	for(int i = 0; i < n; i++)
 	{
-		if (strike[i] > 0)
+		cin >> input_q >> input_s >> input_b;
+		if (find(question.begin(), question.end(), input_q) == question.end())
 		{
-			for (int j = 0; j < n; j++)
+			question.push_back(input_q);
+			strike.push_back(input_s);
+			ball.push_back(input_b);
+		}
+	}
+
+	int result = 0;
+	for (int a = 1; a <= 9; a++)
+	{
+		for (int b = 1; b <= 9; b++)
+		{
+			if (b == a)
+				continue;
+			for (int c = 1; c <= 9; c++)
 			{
-				if (i == j)
+				if (c == a || c == b)
 					continue;
-				if (strike[j] > 0)
+				int fail = 0;
+				for (int i = 0; i < question.size(); i++)
 				{
-					if (question[i] / 100 == question[j] / 100)
-						num1 = question[i] / 100;
-					if (question[i] / 10 % 10 == question[j] / 10 % 10)
-						num2 = question[i] / 10 % 10;
-					if (question[i] % 10 == question[j] % 10)
-						num3 = question[i] % 10;
+					int stk_cnt = 0, ball_cnt = 0;
+
+					if (question[i] / 100 == a)
+						stk_cnt++;
+					else if (question[i] / 10 % 10 == a || question[i] % 10 == a)
+						ball_cnt++;
+					
+					if (question[i] / 10 % 10 == b)
+						stk_cnt++;
+					else if (question[i] / 100 == b || question[i] % 10 == b)
+						ball_cnt++;
+					
+					if (question[i] % 10 == c)
+						stk_cnt++;
+					else if (question[i] / 100 == c || question[i] / 10 % 10 == c)
+						ball_cnt++;
+					
+					if (!((stk_cnt == strike[i] && ball_cnt == ball[i])))
+					{
+						fail = 1;
+						break;
+					}
 				}
+				result += (fail == 0);
 			}
 		}
 	}
-
-	for(int i = 0; i < n; i++)
-	{
-		if (ball[i] > 0)
-		{
-			int stk = strike[i];
-
-			if (stk && (question[i] / 100 == num1))
-				;
-			else if (ball_list.size() == 0 || find(ball_list.begin(), ball_list.end(), ball_list.size()) != ball_list.end())
-				ball_list.push_back(question[i] / 100);
-
-			if (stk && (question[i] / 10 % 10 == num2))
-				;
-			else if (ball_list.size() == 0 || find(ball_list.begin(), ball_list.end(), ball_list.size()) != ball_list.end())
-				ball_list.push_back(question[i] / 10 % 10);
-			
-			if (stk && (question[i] % 10 == num3))
-				;
-			else if (ball_list.size() == 0 || find(ball_list.begin(), ball_list.end(), ball_list.size()) != ball_list.end())
-				ball_list.push_back(question[i] % 10);
-		}
-	}
-
-	int empty_cnt = (num1 == 0) + (num2 == 0) + (num3 == 0);
-	int result;
-	if (empty_cnt == 0)
-		result = 1;
-	else
-		result = empty_cnt * ball_list.size();
-	
 	cout << result << "\n";
 }
 /*
@@ -92,5 +84,7 @@ int main()
 	-> 이 숫자들로 만들수있는 조합은 123 132 213 231 321 312 이다
 	-> 이 입력에서 모두 ball이니 해당 자리에 속하지 않는 조합만 살펴본다면
 	   231 312 이렇게 두개가 된다
+
+	숫자를 비교할때 값이 같으면 1. 자리까지 같으면 스트라이크, 2. 아니라면 볼
 
 */
