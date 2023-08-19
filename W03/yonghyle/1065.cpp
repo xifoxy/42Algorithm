@@ -4,15 +4,14 @@ using namespace std;
 
 int is_hansu(int n)
 {
-	int dif = -1;
+	int dif;
 	int temp;
 	temp = n;
 	
-	while (temp)
+	dif = temp % 10 - temp / 10 % 10;
+	while (temp >= 10)
 	{
-		if (dif == -1)
-			dif = temp % 10 - temp / 10 % 10;
-		else if (dif != temp % 10 - temp / 10 % 10)
+		if (dif != temp % 10 - temp / 10 % 10)
 			return (0);
 		temp /= 10;
 	}
