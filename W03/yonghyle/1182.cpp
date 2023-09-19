@@ -9,9 +9,10 @@ vector<int> nums;
 
 void rec(int idx, int result)
 {
-	if (idx == n && result == s)
+	if (idx == n)
 	{
-		cnt++;
+		if (result == s)
+			cnt++;
 		return;
 	}
 
