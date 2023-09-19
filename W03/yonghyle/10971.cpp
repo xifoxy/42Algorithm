@@ -10,44 +10,35 @@ int arr[10][10];
 
 vector<int> visit_record;
 
-void rec(int depth, long long sum)
+void  rec(int depth, int city, long long sum)
 {
-	cout << "depth: " << depth << "\n";
-	
-	if (depth == n - 1)
-	{
-		cout << "now depth: " << depth << "\n";
-		if (arr[visit_record[n - 1]][visit_record[0]] == 0)
-		{
-			cout << "1sum: " << sum << "\n";
-			return;
-		}
+	if (city >= n)
+		return ;
 
-		sum += arr[visit_record[n - 1]][visit_record[0]];
-		if (result == -1 || sum < result)
-			result = sum;
-		cout << "2sum: " << sum << "\n";
+	if  (depth == n - 1 && arr[city][visit_record[0]] != 0)
+	{
+		if (result == -1 || sum + arr[city][visit_record[0]] < result)
+			result = sum + arr[city][visit_record[0]];
 		return ;
 	}
 
-	cout << "0sum: " << sum << "\n";
+	visit_record.push_back(city);
 	for (int i = 0; i < n; i++)
 	{
-		if (arr[depth][i] == 0 || find(visit_record.begin(), visit_record.end(), i) != visit_record.end())
-			continue;
-		
-		visit_record.push_back(i);
-
-		rec(depth + 1, sum + arr[depth][i]);
-
-		visit_record.erase(find(visit_record.begin(), visit_record.end(), i));
+		if (find(visit_record.begin(), visit_record.end(), i) == visit_record.end() && arr[city][i] != 0) // vector에 없고 갈 수 있는 길이 있을 때
+			rec(depth + 1, i, sum + arr[city][i]);
 	}
-	// 첫번째 도시를 기억하고 있어야한다
-	// 반드시 마지막 도시에서는 첫번째 도시로 오는 길을 택해야 한다 (이때는 중복 상관없음)
+	visit_record.erase(find(visit_record.begin(), visit_record.end(), city));
+
+	if (depth == 0 && city < n)
+		rec(0, city + 1, 0);
 }
 
 int main()
 {
+	ios_base::sync_with_stdio(0);
+	cin.tie(0);
+	
 	cin >> n;
 
 	int input;
@@ -59,9 +50,7 @@ int main()
 			arr[i][j] = input;
 		}
 	}
-	
-	cout << "bye\n";
-	rec(0, 0);
+
+	rec(0, 0, 0);
 	cout << result;
-	cout << "hi\n";
 }
