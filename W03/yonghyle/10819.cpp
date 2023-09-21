@@ -43,6 +43,7 @@ int main()
 	for (int i = 0; i < n; i++)
 		cin >> input[i];
 	
+	visit[0] = true;
 	rec(0, 0, 8, 0);
 	cout << result;
 }
