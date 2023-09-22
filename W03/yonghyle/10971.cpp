@@ -49,6 +49,7 @@ int main()
 		}
 	}
 
+    visit[0] = true;
 	rec(0, 0, 0);
 	cout << result;
 }
