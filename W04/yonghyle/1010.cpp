@@ -19,7 +19,7 @@ void rec(int depth, int cur_m)
 			continue;
 		
 		cur_m = true;
-		rec(depth + 1, i);
+		rec(depth + 1, i + 1);
 		cur_m = false;
 	}
 }
