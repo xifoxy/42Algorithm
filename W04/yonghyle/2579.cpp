@@ -12,7 +12,7 @@ using namespace std;
 
 */
 
-int stair[300], score[300];
+int stair[300], score[300][2];
 
 int main()
 {
@@ -25,11 +25,14 @@ int main()
 	for (int i = 0; i < t; i++)
 		cin >> stair[i];
 	
-	score[0] = stair[0];
-	score[1] = stair[0] + stair[1];
-	score[2] = max(stair[0] + stair[2], stair[1] + stair[2]);
-	for (int i = 3; i < t; i++)
-		score[i] = max(score[i - 1] - score[i - 3], score[i - 2]) + stair[i];
+	score[0][0] = stair[0];
+	score[1][0] = stair[0] + stair[1];
+	score[1][1] = stair[1];
+	for (int i = 2; i < t; i++)
+	{
+		score[i][0] = score[i - 1][1] + stair[i];
+		score[i][1] = max(score[i - 2][0], score[i - 2][1]) + stair[i];
+	}
 	
-	cout << score[t - 1];
+	cout << max(score[t - 1][0], score[t - 1][1]);
 }
